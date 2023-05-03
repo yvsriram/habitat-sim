@@ -529,7 +529,7 @@ PbrDrawable& PbrDrawable::updateShaderLightDirectionParameters(
     Mn::Vector4 pos = getLightPositionRelativeToWorld(
         lightInfo, transformationMatrix, cameraMatrix);
     // flip directional lights to faciliate faster, non-forking calc in
-    // shader.  Leave non-directional lights unchanged
+    // shader.  Leave non-directional lights unchanged (w==1)
     pos *= (pos[3] * 2) - 1;
     lightPositions.emplace_back(pos);
   }

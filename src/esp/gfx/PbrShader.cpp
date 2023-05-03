@@ -239,8 +239,8 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
   setProjectionMatrix(Mn::Matrix4{Mn::Math::IdentityInit});
   if (lightingIsEnabled()) {
     setBaseColor(Magnum::Color4{0.7f});
-    setRoughness(0.1f);
-    setMetallic(0.9f);
+    setRoughness(0.0f);
+    setMetallic(1.0f);
     setIndexOfRefraction(1.5);
     if (flags_ & Flag::NormalTexture) {
       setNormalTextureScale(1.0f);
@@ -268,7 +268,8 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
     // ambient light will not be too strong. Also keeping the IBL specular
     // component relatively low can guarantee the super glossy surface would not
     // reflect the environment like a mirror.
-    // scales.iblDiffuse = 0.5;
+    scales.iblDiffuse = 0.2;
+    scales.iblSpecular = 0.8;
   }
   setPbrEquationScales(scales);
   if (flags_ & Flag::DebugDisplay) {
