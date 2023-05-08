@@ -314,6 +314,24 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
   PbrShader& bindEmissiveTexture(Magnum::GL::Texture2D& texture);
 
   /**
+   * @brief Bind the clearcoat factor texture
+   * @return Reference to self (for method chaining)
+   */
+  PbrShader& bindClearCoatFactorTexture(Magnum::GL::Texture2D& texture);
+
+  /**
+   * @brief Bind the clearcoat roughness texture
+   * @return Reference to self (for method chaining)
+   */
+  PbrShader& bindClearCoatRoughnessTexture(Magnum::GL::Texture2D& texture);
+
+  /**
+   * @brief Bind the clearcoat normal texture
+   * @return Reference to self (for method chaining)
+   */
+  PbrShader& bindClearCoatNormalTexture(Magnum::GL::Texture2D& texture);
+
+  /**
    * @brief Bind the irradiance cubemap texture
    * @return Reference to self (for method chaining)
    */
@@ -399,8 +417,21 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
 
   /**
    * @brief Set index of refraction.
+   * @return Reference to self (for method chaining)
    */
   PbrShader& setIndexOfRefraction(float ior);
+
+  /**
+   * @brief Set clearcoat intensity/factor
+   * @return Reference to self (for method chaining)
+   */
+  PbrShader& setClearCoatFactor(float ccFactor);
+
+  /**
+   * @brief Set clearcoat roughness
+   * @return Reference to self (for method chaining)
+   */
+  PbrShader& setClearCoatRoughness(float ior);
 
   /**
    *  @brief Set object id to the uniform on GPU
@@ -582,6 +613,7 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
   int metallicUniform_ = ID_UNDEFINED;
   int iorUniform_ = ID_UNDEFINED;
   int emissiveColorUniform_ = ID_UNDEFINED;
+
   int objectIdUniform_ = ID_UNDEFINED;
   int textureMatrixUniform_ = ID_UNDEFINED;
   int normalTextureScaleUniform_ = ID_UNDEFINED;
@@ -595,6 +627,11 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
 
   int cameraWorldPosUniform_ = ID_UNDEFINED;
   int prefilteredMapMipLevelsUniform_ = ID_UNDEFINED;
+
+  // Clearcoat layer
+  int clearCoatFactorUniform_ = ID_UNDEFINED;
+
+  int clearCoatRoughnessUniform_ = ID_UNDEFINED;
 
   // scales
   int componentScalesUniform_ = ID_UNDEFINED;
