@@ -97,6 +97,9 @@ void initSimBindings(py::module& m) {
           "requires_textures", &SimulatorConfiguration::requiresTextures,
           R"(Whether or not to load textures for the meshes. This MUST be true for RGB rendering.)")
       .def_readwrite(
+          "hbao_visual_effects", &SimulatorConfiguration::horizonBasedAmbientOcclusion,
+          R"(Whether or not to enable HBAO visual effects.)")
+      .def_readwrite(
           "PBR_image_based_lighting",
           &SimulatorConfiguration::pbrImageBasedLighting,
           R"(Whether or not to enable image based lighting in the PBR shader.)")
