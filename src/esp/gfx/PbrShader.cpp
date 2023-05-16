@@ -87,6 +87,8 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
       // specular layer
       ((flags_ >= Flag::SpecularLayerTexture) ||
        (flags_ >= Flag::SpecularLayerColorTexture)) ||
+      // anisotropy - always needs texCoords to get tangentspace map
+      (bool(flags_ & Flag::AnisotropyLayer)) ||
       // transmission layer
       (flags_ >= Flag::TransmissionLayerTexture) ||
       // volume layer
