@@ -247,13 +247,11 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
   iorUniform_ = uniformLocation("Material.ior");
   emissiveColorUniform_ = uniformLocation("Material.emissiveColor");
 
-  // clearcoat and specular layer data and textures
+  // clearcoat, specular and anisotropy layer data and textures
   if (lightingIsEnabled()) {
     if (flags_ & Flag::ClearCoatLayer) {
       clearCoatFactorUniform_ = uniformLocation("ClearCoat.factor");
       clearCoatRoughnessUniform_ = uniformLocation("ClearCoat.roughness");
-      clearCoatTextureScaleUniform_ =
-          uniformLocation("ClearCoat.normalTextureScale");
       if (flags_ >= Flag::ClearCoatTexture) {
         setUniform(uniformLocation("ClearCoatTexture"),
                    pbrTextureUnitSpace::TextureUnit::ClearCoatFactor);
@@ -263,6 +261,8 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
                    pbrTextureUnitSpace::TextureUnit::ClearCoatRoughenss);
       }
       if (flags_ >= Flag::ClearCoatNormalTexture) {
+        clearCoatTextureScaleUniform_ =
+            uniformLocation("ClearCoat.normalTextureScale");
         setUniform(uniformLocation("ClearCoatNormalTexture"),
                    pbrTextureUnitSpace::TextureUnit::ClearCoatNormal);
       }
@@ -342,7 +342,9 @@ PbrShader::PbrShader(Flags originalFlags, unsigned int lightCount)
     if (flags_ & Flag::ClearCoatLayer) {
       setClearCoatFactor(0.0f);
       setClearCoatRoughness(0.0f);
-      setClearCoatNormalTextureScale(1.0f);
+      if (flags_ >= Flag::ClearCoatNormalTexture) {
+        setClearCoatNormalTextureScale(1.0f);
+      }
     }
     if (flags_ & Flag::SpecularLayer) {
       setSpecularLayerFactor(1.0f);
