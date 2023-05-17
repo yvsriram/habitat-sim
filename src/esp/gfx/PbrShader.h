@@ -24,7 +24,7 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
   /**
    * This field is so we can scale the PBR lights without ruining phong display
    */
-  static constexpr float PBR_LIGHT_SCALE = 3.14159;
+  // static constexpr float PBR_LIGHT_SCALE = 3.14159;
   // ==== Attribute definitions ====
   /**
    * @brief vertex positions
