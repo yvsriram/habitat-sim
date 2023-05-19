@@ -285,6 +285,13 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
    */
   unsigned int lightCount() const { return lightCount_; }
 
+  /** @brief whether this shader has any lighting enabled, either direct or
+   * indirect/IBL.*/
+  bool lightingIsEnabled() const { return lightingIsEnabled_; }
+
+  /** @brief whether any textures are present in this shader.*/
+  bool isTextured() const { return isTextured_; }
+
   /** @brief Flags */
   Flags flags() const { return flags_; }
 
@@ -649,6 +656,12 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
   Flags flags_;
   unsigned int lightCount_;
 
+  // whether or not this shader uses any textures
+  bool isTextured_ = false;
+  // whether or not there is lighting - either direct or indirect - used by this
+  // shader
+  bool lightingIsEnabled_ = false;
+
   // ======= uniforms =======
   // it hurts the performance to call glGetUniformLocation() every frame due
   // to string operations. therefore, cache the locations in the constructor
@@ -698,9 +711,6 @@ class PbrShader : public Magnum::GL::AbstractShaderProgram {
 
   // pbr debug info
   int pbrDebugDisplayUniform_ = ID_UNDEFINED;
-
-  /** @brief return true if direct lights or image based lighting is enabled. */
-  inline bool lightingIsEnabled() const;
 };
 
 CORRADE_ENUMSET_OPERATORS(PbrShader::Flags)
