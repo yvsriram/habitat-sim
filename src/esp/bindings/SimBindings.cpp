@@ -100,7 +100,7 @@ void initSimBindings(py::module& m) {
                      &SimulatorConfiguration::horizonBasedAmbientOcclusion,
                      R"(Whether or not to enable HBAO visual effects.)")
       .def_readwrite(
-          "PBR_image_based_lighting",
+          "pbr_image_based_lighting",
           &SimulatorConfiguration::pbrImageBasedLighting,
           R"(Whether or not to enable image based lighting in the PBR shader.)")
       .def(py::self == py::self)
