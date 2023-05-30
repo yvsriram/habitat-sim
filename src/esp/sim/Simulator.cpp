@@ -205,7 +205,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
   // load IBL assets if appropriate and not loaded already
   // TODO : So many things.  Needs to be config driven, for one.
   if (cfg.pbrImageBasedLighting) {
-    resourceManager_->initPbrImageBasedLighting("lythwood_room_4k.jpg");
+    resourceManager_->initPbrImageBasedLighting("lythwood_room_1k.hdr");
   }
 
   // (re) create scene instance
