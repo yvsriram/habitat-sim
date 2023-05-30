@@ -1130,6 +1130,11 @@ if __name__ == "__main__":
         help="Enable image-based lighting. Only applicable to scenes built with PBR materials.",
     )
     parser.add_argument(
+        "--hbao",
+        action="store_true",
+        help="Enable horizon-based ambient occlusion.",
+    )
+    parser.add_argument(
         "--enable-batch-renderer",
         action="store_true",
         help="Enable batch rendering mode. The number of concurrent environments is specified with the num-environments parameter.",
@@ -1180,6 +1185,7 @@ if __name__ == "__main__":
     sim_settings["window_width"] = args.width
     sim_settings["window_height"] = args.height
     sim_settings["pbr_image_based_lighting"] = args.ibl
+    sim_settings["hbao_visual_effects"] = args.hbao
 
     # start the application
     HabitatSimInteractiveViewer(sim_settings).exec()
