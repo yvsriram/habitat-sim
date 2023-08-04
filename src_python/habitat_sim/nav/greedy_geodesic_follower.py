@@ -145,7 +145,7 @@ class GreedyGeodesicFollower:
     def _turn_right(self, obj: scene.SceneNode) -> bool:
         return self.agent.controls(obj, "turn_right", self.right_spec, True)
 
-    def next_action_along(self, goal_pos: np.ndarray) -> Any:
+    def next_action_along(self, goal_pos: np.ndarray, curr_rot=None, curr_pos=None) -> Any:
         r"""Find the next action to greedily follow the geodesic shortest path
         from the agent's current position to get to the goal
 
@@ -157,8 +157,12 @@ class GreedyGeodesicFollower:
             self.last_goal = goal_pos
 
         state = self.agent.state
+        if curr_rot is None:
+            curr_rot = quat_to_magnum(state.rotation)
+        if curr_pos is None:
+            curr_pos = state.position
         next_act = self.impl.next_action_along(
-            quat_to_magnum(state.rotation), state.position, goal_pos
+            curr_rot, curr_pos, goal_pos
         )
 
         if next_act == GreedyFollowerCodes.ERROR:
@@ -187,7 +191,6 @@ class GreedyGeodesicFollower:
         path = self.impl.find_path(
             quat_to_magnum(state.rotation), state.position, goal_pos
         )
-
         if len(path) == 0:
             raise errors.GreedyFollowerError()
 
